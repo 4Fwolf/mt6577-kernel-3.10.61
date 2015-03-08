@@ -3,8 +3,8 @@
 include $(srctree)/drivers/misc/mediatek/Makefile.custom
 
 # For MT6795 FPGA bring-up
-ifeq ($(CONFIG_ARCH_MT6795),y)
-include $(srctree)/drivers/misc/mediatek/Makefile.mt6795
+ifeq ($(CONFIG_ARCH_MT6577),y)
+include $(srctree)/drivers/misc/mediatek/Makefile.mt6577
 else
 
 ifneq (,$(filter $(CONFIG_ARCH_MT6735) $(CONFIG_ARCH_MT6735M) $(CONFIG_ARCH_MT6753), y))
