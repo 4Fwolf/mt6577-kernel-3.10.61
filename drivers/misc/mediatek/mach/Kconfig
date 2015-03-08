@@ -24,8 +24,6 @@ config EAGLE77V1
 	help
 	  Select if you are using an Eagle75v1 phone.	  
 	  
-endchoice	  
-	  
 endchoice
 
 config FPGA_CA7
