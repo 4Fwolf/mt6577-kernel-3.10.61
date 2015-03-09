@@ -78,6 +78,11 @@ config MTK_LDVT_PMIC_WRAP
 	default y
 	---help---
 	  MediaTek PMIC_WRAP driver for LDVT
+	  
+config MTK_SC_DEBUG
+        bool "MediaTek SLPCTRL Debug Mode for LDVT"
+        default y
+
 
 endif
 
@@ -93,6 +98,11 @@ config CUSTOM_KERNEL_CHARGEPUMP
 config MTK_IRTX_SUPPORT
 	bool "MediaTek consumer IR tansmitter"
 	default n
+config MTK_BT_NET_DEV # BT_NET_DEV
+        bool "Bluetooth network device (for DUN/PAN)"
+        ---help---
+          This is the virtual network driver for bluetooth DUN and PAN. It can be
+          used to forward ip packets to external network driver. Say Y or N.
 
 # CCCI TODO refine
 menuconfig MTK_CCCI_DEVICES
@@ -753,6 +763,28 @@ config MTK_LEDS
 	  This selects the MediaTek(R) LEDs connected to MediaTek chips.
 	  If you want to use MediaTek(R) LEDs support, say Y or M here.
 	  If unsure, say N.
+# CPUFreq
+config MTK_CPUFREQ
+        tristate "MediaTek CPUFreq Support"
+        depends on CPU_FREQ
+        default y
+        ---help---
+          Enable this option to support cpufreq function
+        
+# SGX Config
+config PVR_SGX_MT6577
+        tristate "PowerVR SGX support"
+        depends on ARCH_MT6577
+        default m
+        ---help---
+          Enable this option to build support for the PowerVR SGX 3D core.
+
+config PVR_SGX_MT6575
+        tristate "PowerVR SGX support"
+        depends on ARCH_MT6575
+        default m
+        ---help---
+          Enable this option to build support for the PowerVR SGX 3D core.
 
 # Memory Card
 config MTK_MMC
@@ -1382,6 +1414,11 @@ config KICK_SPM_WDT # SW WORKAROUND
 	default n
 	---help---
 	  SW workaround to kick SPM WDT instaed of RGU WDT
+config LOCAL_WDT # CONFIG_LOCAL_WDT
+        tristate "local WatchDog for multicore"
+        default y
+        ---help---
+        local WatchDog dog kicker is a module in the kernel for multicore        
 
 # Wireless
 menuconfig MT592X
@@ -1470,6 +1507,9 @@ config USB_MTK_HDRC_HCD
 
 config MTK_USB_UNIQUE_SERIAL
 	 tristate "MediaTek USB unique serial number"
+config MT6575T_FPGA
+         tristate "MT6575T FPGA support"         
+         depends on ARCH_MT6575T
 
 config MTK_USBFSH # USBFSH
 	bool "MediaTek USB fullspeed Host driver"
@@ -1575,6 +1615,20 @@ config PWR_LOSS_MTK_SPOH
     help
       Say Y here if you want to perform Power loss test version SPOH
       If unsure, Say N.
+config MISC_VIA
+	bool "VIATEL MISC driver"
+	default n
+config MTK_DEVINFO_DRIVER # DEVINFO driver
+        tristate "DEVINFO Driver"
+        default m
+        help
+          This option enables devinfo device driver support
+config MTK_DEVAPC_DRIVER # DEVAPC driver
+        tristate "DEVAPC Driver"
+        default m
+        help
+          This option enables devapc device driver support
+	
 endif
 
 menuconfig MTK_EMMC_CACHE

@@ -64,11 +64,21 @@ config MTK_KERNEL_MARKER
 	  Mark the user-defined points, such as systrace events in
 	  user space, to visualize via systrace html files
 
+config FUNCTION_DURATION_TRACER
+        bool "Kernel Function Duration Tracer"
+        depends on FUNCTION_GRAPH_TRACER
+        help
+          Enable the kernel to record function durations, with
+          filtering.  Can also be used in early startup.
+          See Documentation/trace/func-duration.txt
+
 config MT65XX_TRACER
-	bool "MT65XX Tracer"
-	select CONTEXT_SWITCH_TRACER
-	select GENERIC_TRACER
-	default n
+        bool "MT65XX Tracer"
+        select CONTEXT_SWITCH_TRACER
+        select GENERIC_TRACER
+
+config GENERIC_TRACER
+        bool "Scheduler Switch Tracer"
 
 menu "MET"
 
@@ -101,6 +111,9 @@ config MTPROF_CPUTIME
 
 endmenu
 
+config MTPROF_APPLAUNCH
+    bool "applaunch time profiling"
+
 config MTPROF_IRQ_DURATION
 	bool "mt IRQ/ISR profiling"
 
@@ -119,6 +132,11 @@ config MTK_AEE_IPANIC
 	tristate "Enable AEE Kernel Panic Dump"
 	default y
 
+config MTK_AEE_KDUMP
+        tristate "Include memory Dump"
+        default y
+	
+	
 config MTK_AEE_POWERKEY_HANG_DETECT
     bool "powerkey monitor"
     default n
